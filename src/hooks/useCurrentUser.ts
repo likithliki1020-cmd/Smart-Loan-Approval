@@ -1,0 +1,15 @@
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+
+export function useCurrentUser() {
+  const user = useQuery(api.users.currentUser);
+  return {
+    user,
+    isLoading: user === undefined,
+    isAuthenticated: user !== null && user !== undefined,
+    isCustomer: user?.role === "customer",
+    isOfficer: user?.role === "loan_officer",
+    isVerificationOfficer: user?.role === "verification_officer",
+    isAdmin: user?.role === "admin",
+  };
+}
